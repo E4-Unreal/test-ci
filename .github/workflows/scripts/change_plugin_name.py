@@ -7,9 +7,7 @@ def check_plugin_name(old_plugin_name, new_plugin_name):
     elif old_plugin_name == new_plugin_name:
         sys.exit('Plugin name is same')
 
-def change_plugin_name():
-    old_plugin_name = os.environ.get('OLD_PLUGIN_NAME')
-    new_plugin_name = os.environ.get('NEW_PLUGIN_NAME')
+def change_plugin_name(old_plugin_name, new_plugin_name):
     check_plugin_name(old_plugin_name, new_plugin_name)
 
     plugin_file_path = old_plugin_name + '.uplugin'
@@ -21,4 +19,4 @@ def change_plugin_name():
             f.write(line)
 
 if __name__ == '__main__':
-    change_plugin_name()
+    change_plugin_name(os.environ.get('OLD_PLUGIN_NAME'), os.environ.get('NEW_PLUGIN_NAME'))
