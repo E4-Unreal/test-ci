@@ -24,6 +24,8 @@ jobs:
     env:
       WORKFLOWS_DIRECTORY: .github/workflows
       SCRIPTS_DIRECTORY: .github/workflows/scripts
+      OLD_PLUGIN_NAME: ${{ inputs.oldPluginName }}
+      NEW_PLUGIN_NAME: ${{ inputs.newPluginName }}
 
     steps:
     - uses: actions/checkout@v4

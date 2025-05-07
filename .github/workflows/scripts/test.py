@@ -1,4 +1,7 @@
 import os
 
-repository_name = os.environ.get("GITHUB_REPOSITORY")
-print(repository_name.split('/')[1])
+old_plugin_name = os.environ.get("OLD_PLUGIN_NAME")
+new_plugin_name = os.environ.get("NEW_PLUGIN_NAMe")
+
+print(f'Old Plugin Name: {old_plugin_name}')
+print(f'New Plugin Name: {new_plugin_name}')
