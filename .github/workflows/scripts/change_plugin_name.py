@@ -16,9 +16,9 @@ def change_plugin_name():
 
     with open(plugin_file_path, 'r+') as f:
         lines = f.readlines()
-    for line in lines:
-        line = line.replace(old_plugin_name, new_plugin_name)
-        f.write(line)
+        for line in lines:
+            line = line.replace(old_plugin_name, new_plugin_name)
+            f.write(line)
 
 if __name__ == '__main__':
     change_plugin_name()
