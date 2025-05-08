@@ -2,7 +2,7 @@ import os
 import sys
 
 def replace_text(file_path, old_text, new_text):
-    with open(file_path, 'r+') as f:
+    with open(file_path, 'r+', encoding='UTF8') as f:
         lines = f.readlines()
         f.seek(0)
         for line in lines:
