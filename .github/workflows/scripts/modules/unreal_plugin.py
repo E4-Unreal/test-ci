@@ -3,17 +3,19 @@ import sys
 import chardet
 
 def replace_text(file_path: str, text_tuple: tuple[str, str]):
-    with open(file_path, 'r+', encoding='UTF8') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-        f.seek(0)
+
+    with open(file_path, 'w', encoding='utf-8') as f:
         for line in lines:
             line = line.replace(text_tuple[0], text_tuple[1])
             f.write(line)
 
 def replace_texts(file_path: str, text_tuples: list[tuple[str, str]]):
-    with open(file_path, 'r+', encoding='UTF8') as f:
+    with open(file_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-        f.seek(0)
+
+    with open(file_path, 'w', encoding='utf-8') as f:
         for line in lines:
             for text_tuple in text_tuples:
                 line = line.replace(text_tuple[0], text_tuple[1])
