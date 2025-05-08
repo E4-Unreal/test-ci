@@ -3,6 +3,10 @@ name: Change Plugin Name
 on:
   workflow_dispatch:
     inputs:
+      repository:
+        description: 'Repository'
+        required: true
+        default: 'E4-Unreal/project-workflows'
       newPluginName:
         description: 'New Plugin Name'
         type: string
@@ -22,7 +26,10 @@ jobs:
       NEW_PLUGIN_NAME: ${{ inputs.newPluginName }}
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+          repository: ${{ inputs.repository }}
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
