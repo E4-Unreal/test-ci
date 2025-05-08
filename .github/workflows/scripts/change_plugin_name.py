@@ -1,8 +1,7 @@
 import os
-
-from modules import unreal_plugin
+from modules.unreal_plugin import UnrealPlugin
 
 if __name__ == '__main__':
-    old_plugin_name = os.environ['OLD_PLUGIN_NAME']
     new_plugin_name = os.environ['NEW_PLUGIN_NAME']
-    unreal_plugin.change_plugin_name(os.getcwd(), old_plugin_name, new_plugin_name)
+    unreal_plugin = UnrealPlugin()
+    unreal_plugin.set_plugin_name(new_plugin_name)
