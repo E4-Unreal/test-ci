@@ -1,5 +1,6 @@
 import os
 import sys
+import chardet
 
 def replace_text(file_path: str, text_tuple: tuple[str, str]):
     with open(file_path, 'r+', encoding='UTF8') as f:
