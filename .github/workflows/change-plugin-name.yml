@@ -3,11 +3,6 @@ name: Change Plugin Name
 on:
   workflow_dispatch:
     inputs:
-      oldPluginName:
-        description: 'Old Plugin Name'
-        type: string
-        required: true
-        default: 'PLUGIN_NAME'
       newPluginName:
         description: 'New Plugin Name'
         type: string
@@ -24,7 +19,6 @@ jobs:
     env:
       WORKFLOWS_DIRECTORY: .github/workflows
       SCRIPTS_DIRECTORY: .github/workflows/scripts
-      OLD_PLUGIN_NAME: ${{ inputs.oldPluginName }}
       NEW_PLUGIN_NAME: ${{ inputs.newPluginName }}
 
     steps:
@@ -44,5 +38,5 @@ jobs:
       run: |
         git config user.name "github-actions[bot]"
         git config user.email github-actions[bot]@users.noreply.github.com
-        git commit -am "Chore: 플러그인 이름 수정 ($OLD_PLUGIN_NAME > $NEW_PLUGIN_NAME)"
+        git commit -am "Chore: 플러그인 이름 수정 ($NEW_PLUGIN_NAME)"
         git push
