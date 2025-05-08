@@ -38,6 +38,7 @@ jobs:
       with:
         repository: ${{ inputs.repository }}
         path: ${{ env.TARGET_REPOSITORY_PATH }}
+        token: ${{ secrets.CONTENTS_READ_WRITE }}
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
