@@ -1,12 +1,21 @@
 import os
 import sys
 
-def replace_text(file_path, old_text, new_text):
+def replace_text(file_path: str, text_tuple: tuple[str, str]):
     with open(file_path, 'r+', encoding='UTF8') as f:
         lines = f.readlines()
         f.seek(0)
         for line in lines:
-            line = line.replace(old_text, new_text)
+            line = line.replace(text_tuple[0], text_tuple[1])
+            f.write(line)
+
+def replace_texts(file_path: str, text_tuples: list[tuple[str, str]]):
+    with open(file_path, 'r+', encoding='UTF8') as f:
+        lines = f.readlines()
+        f.seek(0)
+        for line in lines:
+            for text_tuple in text_tuples:
+                line = line.replace(text_tuple[0], text_tuple[1])
             f.write(line)
 
 class UnrealPlugin:
@@ -38,10 +47,13 @@ class UnrealPlugin:
         elif self.name == new_name:
             sys.exit('Plugin name is same')
 
-        # 플러그인 파일 수정
-        replace_text(self.path, self.name, new_name)
+        # 변수 선언
+        plugin_name_tuple = (self.name, new_name)
         new_plugin_path = new_name + self.extension
+
+        # 플러그인 파일 수정
+        replace_text(self.path, plugin_name_tuple)
         os.rename(self.path, new_plugin_path)
 
         # README 파일 수정
-        replace_text(self.readme_path, self.name, new_name)
+        replace_text(self.readme_path, plugin_name_tuple)
