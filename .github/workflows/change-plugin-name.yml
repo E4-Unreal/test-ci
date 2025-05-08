@@ -17,9 +17,12 @@ permissions:
   contents: write
 
 jobs:
-  run:
+  change-plugin-name:
 
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.TARGET_REPOSITORY_PATH }}
     env:
       WORKFLOWS_REPOSITORY_PATH: workflows-repository
       TARGET_REPOSITORY_PATH: target-repository
@@ -49,10 +52,8 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run python scripts
-      working-directory: ${{ env.TARGET_REPOSITORY_PATH }}
       run: python ../${{ env.WORKFLOWS_REPOSITORY_PATH }}/${{ env.SCRIPTS_DIRECTORY }}/main.py
     - name: Push commit
-      working-directory: ${{ env.TARGET_REPOSITORY_PATH }}
       run: |
         git config user.name "github-actions[bot]"
         git config user.email github-actions[bot]@users.noreply.github.com
