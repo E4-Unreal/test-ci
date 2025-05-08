@@ -10,6 +10,7 @@ public class PLUGIN_NAME : ModuleRules
             new string[]
             {
                 "Core",
+                "UniversalUtilities"
             }
         );
 
