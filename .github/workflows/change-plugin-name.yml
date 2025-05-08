@@ -21,39 +21,37 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      WORKFLOWS_REPOSITORY: ${{ github.repository }}
       WORKFLOWS_REPOSITORY_PATH: workflows-repository
-      TARGET_REPOSITORY: ${{ inputs.repository }}
       TARGET_REPOSITORY_PATH: target-repository
-      WORKFLOWS_DIRECTORY: $WORKFLOWS_REPOSITORY_PATH/.github/workflows
-      SCRIPTS_DIRECTORY: $WORKFLOWS_REPOSITORY_PATH/.github/workflows/scripts/change_plugin_name
+      WORKFLOWS_DIRECTORY: .github/workflows
+      SCRIPTS_DIRECTORY: .github/workflows/scripts/change_plugin_name
       NEW_PLUGIN_NAME: ${{ inputs.newPluginName }}
 
     steps:
     - name: Checkout Workflows Repository
       uses: actions/checkout@v4
       with:
-        repository: ${{ env.WORKFLOWS_REPOSITORY }}
+        repository: ${{ github.repository }}
         path: ${{ env.WORKFLOWS_REPOSITORY_PATH }}
     - name: Checkout Target Repository
       uses: actions/checkout@v4
       with:
-        repository: ${{ env.TARGET_REPOSITORY }}
+        repository: ${{ inputs.repository }}
         path: ${{ env.TARGET_REPOSITORY_PATH }}
-    - name: Test
-      run: ls
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
     - name: Install dependencies
-      working-directory: ${{ env.SCRIPTS_DIRECTORY }}
+      working-directory: ${{ env.WORKFLOWS_REPOSITORY_PATH }}/${{ env.SCRIPTS_DIRECTORY }}
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run python scripts
-      run: python $SCRIPTS_DIRECTORY/main.py
+      working-directory: ${{ env.TARGET_REPOSITORY_PATH }}
+      run: python ../${{ env.WORKFLOWS_REPOSITORY_PATH }}/${{ env.SCRIPTS_DIRECTORY }}/main.py
     - name: Push commit
+      working-directory: ${{ env.TARGET_REPOSITORY_PATH }}
       run: |
         git config user.name "github-actions[bot]"
         git config user.email github-actions[bot]@users.noreply.github.com
