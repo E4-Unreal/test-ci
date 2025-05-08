@@ -21,15 +21,27 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      WORKFLOWS_DIRECTORY: .github/workflows
-      SCRIPTS_DIRECTORY: .github/workflows/scripts/change_plugin_name
+      WORKFLOWS_REPOSITORY: ${{ github.repository }}
+      WORKFLOWS_REPOSITORY_PATH: workflows-repository
+      TARGET_REPOSITORY: ${{ inputs.repository }}
+      TARGET_REPOSITORY_PATH: target-repository
+      WORKFLOWS_DIRECTORY: $WORKFLOWS_REPOSITORY_PATH/.github/workflows
+      SCRIPTS_DIRECTORY: $WORKFLOWS_REPOSITORY_PATH/.github/workflows/scripts/change_plugin_name
       NEW_PLUGIN_NAME: ${{ inputs.newPluginName }}
 
     steps:
-    - name: Checkout
+    - name: Checkout Workflows Repository
       uses: actions/checkout@v4
       with:
-          repository: ${{ inputs.repository }}
+        repository: ${{ env.WORKFLOWS_REPOSITORY }}
+        path: ${{ env.WORKFLOWS_REPOSITORY_PATH }}
+    - name: Checkout Target Repository
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ env.TARGET_REPOSITORY }}
+        path: ${{ env.TARGET_REPOSITORY_PATH }}
+    - name: Test
+      run: ls
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
