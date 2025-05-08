@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORKFLOWS_DIRECTORY: .github/workflows
-      SCRIPTS_DIRECTORY: .github/workflows/scripts
+      SCRIPTS_DIRECTORY: .github/workflows/scripts/change_plugin_name
       NEW_PLUGIN_NAME: ${{ inputs.newPluginName }}
 
     steps:
@@ -33,7 +33,7 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run python scripts
-      run: python $SCRIPTS_DIRECTORY/change_plugin_name.py
+      run: python $SCRIPTS_DIRECTORY/main.py
     - name: Push commit
       run: |
         git config user.name "github-actions[bot]"
