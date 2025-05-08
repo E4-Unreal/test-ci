@@ -1,6 +1,5 @@
 import os
 import sys
-import shutil
 
 def replace_text(file_path, old_text, new_text):
     with open(file_path, 'r+', encoding='UTF8') as f:
@@ -42,10 +41,7 @@ class UnrealPlugin:
         # 플러그인 파일 수정
         replace_text(self.path, self.name, new_name)
         new_plugin_path = new_name + self.extension
-
-        # os.rename은 git에 제대로 반영되지 않기 때문에 복사 후 제거 방식으로 플러그인 파일명 수정
-        shutil.copy(self.path, new_plugin_path)
-        os.remove(self.path)
+        os.rename(self.path, new_plugin_path)
 
         # README 파일 수정
         replace_text(self.readme_path, self.name, new_name)
