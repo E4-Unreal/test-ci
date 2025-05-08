@@ -30,6 +30,7 @@ class UnrealPlugin:
         self.readme_path = os.path.join(self.plugin_directory, 'README.md')
         self.all_file_paths = []
         self.header_file_paths = []
+        self.module_directory: str = None
 
         # 작업 폴더 변경
         if os.path.isdir(self.plugin_directory):
@@ -45,8 +46,11 @@ class UnrealPlugin:
         else:
             sys.exit('Plugin file is not found')
 
+        # 모듈 경로 불러오기
+        self.module_directory = os.path.join(self.plugin_directory, 'Source', self.name)
+
         # 모든 파일 경로 불러오기
-        all_file_paths = glob.glob(os.path.join(self.plugin_directory, 'Source', self.name, '**', '*.*'), recursive=True)
+        all_file_paths = glob.glob(os.path.join(self.module_directory, '**', '*.*'), recursive=True)
         for file_path in all_file_paths:
             if file_path.endswith('.h') or file_path.endswith('.cpp') or file_path.endswith('.cs'):
                 self.all_file_paths.append(file_path)
@@ -81,3 +85,6 @@ class UnrealPlugin:
             basename = os.path.basename(file_path)
             if self.name in basename:
                 os.rename(file_path, os.path.join(dirname, basename.replace(self.name, new_name)))
+
+        # 모듈명 수정
+        os.rename(self.module_directory, self.module_directory.replace(self.name, new_name))
