@@ -7,6 +7,10 @@ on:
         description: 'Repository'
         required: true
         default: 'E4-Unreal/plugin-name'
+      targetBranch:
+        description: 'Target Branch'
+        required: true
+        default: develop
       newPluginName:
         description: 'New Plugin Name'
         type: string
@@ -44,6 +48,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: ${{ inputs.repository }}
+        ref: ${{ inputs.targetBranch }}
         path: ${{ env.TARGET_REPOSITORY_PATH }}
         token: ${{ secrets.CONTENTS_READ_WRITE }}
     - name: Set up Python 3.10
