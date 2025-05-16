@@ -88,3 +88,9 @@ class UnrealPlugin:
 
         # 모듈명 수정
         os.rename(self.module_directory, self.module_directory.replace(self.name, new_name))
+
+    def set_category(self, new_category):
+        if new_category is None:
+            return
+
+        replace_text(self.path, ('Other', new_category))

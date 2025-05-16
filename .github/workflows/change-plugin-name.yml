@@ -6,12 +6,15 @@ on:
       repository:
         description: 'Repository'
         required: true
-        default: 'E4-Unreal/project-workflows'
+        default: 'E4-Unreal/plugin-name'
       newPluginName:
         description: 'New Plugin Name'
         type: string
         required: true
         default: 'PLUGIN_NAME'
+      newCategory:
+        description: 'New Category'
+        type: string
 
 permissions:
   contents: write
@@ -29,6 +32,7 @@ jobs:
       WORKFLOWS_DIRECTORY: .github/workflows
       SCRIPTS_DIRECTORY: .github/workflows/scripts/change_plugin_name
       NEW_PLUGIN_NAME: ${{ inputs.newPluginName }}
+      NEW_CATEGORY: ${{ inputs.newCategory }}
 
     steps:
     - name: Checkout Workflows Repository
