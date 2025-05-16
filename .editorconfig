@@ -8,15 +8,17 @@ root = true
 # 인코딩
 charset = utf-8
 
-# 들여쓰기 및 간격
+# 들여쓰기 간격
 indent_style = space
 indent_size = 4
+
+[{*.yml,*.yaml}]
+indent_size = 2
 
 # 줄 설정
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# 마크다운 파일
 [*.md]
 trim_trailing_whitespace = false
